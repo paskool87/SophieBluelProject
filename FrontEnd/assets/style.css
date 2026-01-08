@@ -95,8 +95,18 @@ nav li {
 	font-size: 1.2em;
 }
 
+li a {
+	text-decoration: none;
+	color: inherit;
+}
+
+li.gras{
+	font-weight: 700;
+}
+
 li:hover {
 	color: #B1663C;
+	cursor: pointer;
 }
 #introduction {
 	display: flex;
@@ -143,6 +153,11 @@ li:hover {
 	color: #1D6154;
 	border: 1px solid #1D6154;
 	padding: 0 20px;
+}
+.filters button:hover {
+	background-color: #1D6154;
+	color: white;
+	cursor: pointer;
 }
 .gallery {
 	width: 100%;
@@ -204,4 +219,51 @@ footer nav ul {
 	justify-content: flex-end;
 	margin: 2em
 }
+#loginSection {
+	width: 30%;
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
 
+#loginSection h2 {
+	font-size: 30px;
+}
+
+#loginSection form {
+	display: flex;
+	flex-direction: column;
+	text-align: left;
+}
+
+#loginSection label {
+	margin-top: 1em;
+	margin-bottom: 0.5em;
+	font-size: 14px;
+}
+
+#loginSection input {
+	margin-bottom: 1em;
+	width: 380px;
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+#loginSection button {
+  background: none;
+  border: none;
+  padding: 0;
+  text-decoration: underline;
+  cursor: pointer;
+  font: inherit;
+  margin-bottom: 140px;
+}
+
+#loginSection .btn{
+	width: 180px;
+	height: 40px;
+	margin-bottom: 40px;
+}
