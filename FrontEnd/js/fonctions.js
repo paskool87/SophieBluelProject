@@ -63,3 +63,12 @@ export async function getcategories() {
 export function clearCategories() {
     localStorage.removeItem('categories');
 }
+
+export function clearGallery() {
+    const gallery = document.querySelector('.gallery');
+    gallery.innerHTML = '';
+}
+
+export function filtrerWorksByCategory(works, categoryId) {
+    return works.filter(work => work.categoryId === categoryId);
+}
