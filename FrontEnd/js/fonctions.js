@@ -72,3 +72,37 @@ export function clearGallery() {
 export function filtrerWorksByCategory(works, categoryId) {
     return works.filter(work => work.categoryId === categoryId);
 }
+
+export async function connexionAdmin() {
+
+const form = document.getElementById("loginForm");
+const formData = new FormData(form);
+const data = Object.fromEntries(formData);
+
+try {
+    const response = await fetch("http://localhost:5678/api/users/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    });
+
+    if (!response.ok) {
+        console.log("Erreur de connexion");
+      const message= document.querySelector(".errorMessage");
+      message.style.display="block";
+      message.innerText="Erreur dans l’identifiant ou le mot de passe";
+      setTimeout(() => {message.innerHTML=""; message.style.display="none";},3000);
+    throw new Error("Erreur lors de la connexion");
+
+    }
+    const result = await response.json();
+    localStorage.setItem("token", result.token);
+    window.location.href = "index.html";
+    return result;
+} catch (error) {
+    console.error("Erreur lors de la connexion :", error);
+    throw error;
+}   
+}
