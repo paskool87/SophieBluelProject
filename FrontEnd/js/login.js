@@ -1,5 +1,6 @@
 import{
-    connexionAdmin
+    connexionAdmin,
+    modeEdit
 }
 from "./fonctions.js";
 

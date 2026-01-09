@@ -99,10 +99,22 @@ try {
     }
     const result = await response.json();
     localStorage.setItem("token", result.token);
-    window.location.href = "index.html";
+    modeEdit();
     return result;
 } catch (error) {
     console.error("Erreur lors de la connexion :", error);
     throw error;
 }   
+}
+
+export function modeEdit() {
+    window.location.href = "index.html";
+    
+    const header = document.querySelector("header");
+    const editBar = document.createElement("div");
+    editBar.classList.add("editBar");
+    editBar.innerHTML = `<span><button class="editBtn"></button>Mode édition</span>`;
+    header.prepend(editBar);
+
+    
 }

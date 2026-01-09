@@ -237,6 +237,10 @@ footer nav ul {
 	text-align: left;
 }
 
+#loginForm{
+	position: relative;
+}
+
 #loginSection label {
 	margin-top: 1em;
 	margin-bottom: 0.5em;
@@ -272,7 +276,6 @@ footer nav ul {
 	color: red;
 	font-size: 14px;
 	position: absolute;
-	top: 65%;
-	left: 41%;
-
+	top: 62%;
+left: 15%;
 }	
