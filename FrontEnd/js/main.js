@@ -8,6 +8,9 @@ import {
   clearCategories,
   clearGallery,
   filtrerWorksByCategory,
+  modeEdit,
+  modeEditExit
+
   
 } from "./fonctions.js";
 const works = await getWorks();
@@ -35,7 +38,7 @@ categories.forEach((category) => {
 });
 
 const tousBtn = document.querySelector(".tous");
-tousBtn.addEventListener("click", async () => {
+tousBtn.addEventListener("click",  () => {
   clearGallery();
 
   works.forEach((work) => {
@@ -48,7 +51,7 @@ categories.forEach((category) => {
     `button[data-category-id='${category.id}']`
   );
   const filteredWorks = filtrerWorksByCategory(works, category.id);
-  button.addEventListener("click", async () => {
+  button.addEventListener("click",  () => {
     clearGallery();
     filteredWorks.forEach((work) => {
       afficherWorks(work.title, work.imageUrl);
@@ -56,3 +59,14 @@ categories.forEach((category) => {
   });
 });
 
+const editMode = localStorage.getItem("editMode");
+if (editMode === "true") {
+    modeEdit();
+}
+  const logoutLink = document.querySelector(".log.out");
+  
+  logoutLink.addEventListener("click", () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("editMode");
+    
+    modeEditExit();});  
