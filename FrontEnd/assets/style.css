@@ -413,7 +413,6 @@ footer nav ul {
   background-color: white;
   padding: 20px;
   border-radius: 10px;
-
 }
 
 .modal-content {
@@ -481,4 +480,87 @@ footer nav ul {
   width: 180px;
   text-align: center;
   border-radius: 60px;
+  cursor: pointer;
+  border: none;
+}
+
+.modalFleche {
+  position: absolute;
+  top: -20px;
+  left: 20px;
+  cursor: pointer;
+  font-size: 21px;
+}
+
+.ModalboxPhoto {
+  width: 65%;
+  height: 30%;
+  margin: auto;
+  background-color: #e8f1f6;
+  margin-bottom: 30px;
+}
+
+.ModalPicture {
+  font-size: 75px;
+  color: #b9c5cc;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.ModalAjoutPhotoBtn {
+  display: block;
+  margin: auto;
+  width: 175px;
+  height: 36px;
+  background-color: #cbd6dc;
+  color: #306685;
+  font-size: 14px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-bottom: 15px;
+  border: none;
+}
+
+.titreLabel {
+}
+
+#titre {
+}
+.addPhotoForm .form-group {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+margin-left: 120px;
+}
+
+.addPhotoForm label {
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  font-size: 14px;
+}
+.addPhotoForm input,
+.addPhotoForm select {
+  margin-bottom: 1em;
+  width: 78%;
+  height: 50px;
+  font-size: 1.2em;
+  border: none;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+  background-color: white;
+}
+
+.addPhotoForm button{
+	  font-family: "Syne";
+  height: 36px;
+  font-size: 14px;
+  color: white;
+  background-color: #A7A7A7;
+  margin-top: 50px;
+  width: 180px;
+  text-align: center;
+  border-radius: 60px;
+  cursor: pointer;
+  border: none;
+
 }

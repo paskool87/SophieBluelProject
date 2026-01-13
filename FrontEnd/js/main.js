@@ -66,7 +66,7 @@ if (editMode === "true") {
     modeEdit();
 }
 
-afficherModalGallery(works);
+//afficherModalGallery(works);
 
   const logoutLink = document.querySelector(".log.out");
   
