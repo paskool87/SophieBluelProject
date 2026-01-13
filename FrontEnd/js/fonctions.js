@@ -137,3 +137,36 @@ export function modeEditExit() {
 
   location.reload();
 }
+
+export function afficherWorksInModal(srcImage) {
+  const gallery = document.querySelector(".modalGallery");
+  const figure = document.createElement("figure");
+  const image = document.createElement("img");
+
+  figure.style.position = "relative";
+
+  const trash = document.createElement("div");
+  trash.classList.add("poubelle");
+  figure.appendChild(trash);
+
+  const deleteIcon = document.createElement("i");
+  deleteIcon.classList.add("fas", "fa-trash-alt", "deleteIcon");
+  trash.appendChild(deleteIcon);
+
+  image.src = srcImage;
+  figure.appendChild(image);
+  gallery.appendChild(figure);
+}
+
+export function afficherModalGallery(works) {
+  const gallery = document.querySelector(".modal-content");
+  gallery.innerHTML = `
+				<h3>Galerie photo</h3>
+				<div class="modalGallery">
+				</div>
+				<button class="modalAjoutBtn">Ajouter une photo</button>`;
+
+  works.forEach((work) => {
+    afficherWorksInModal(work.imageUrl);
+  });
+}

@@ -9,13 +9,15 @@ import {
   clearGallery,
   filtrerWorksByCategory,
   modeEdit,
-  modeEditExit
+  modeEditExit,
+  afficherWorksInModal,
+  afficherModalGallery
 
   
 } from "./fonctions.js";
 const works = await getWorks();
 const categories = await getcategories();
-
+console.log(works);
 clearGallery();
 
 works.forEach((work) => {
@@ -63,10 +65,14 @@ const editMode = localStorage.getItem("editMode");
 if (editMode === "true") {
     modeEdit();
 }
+
+afficherModalGallery(works);
+
   const logoutLink = document.querySelector(".log.out");
   
   logoutLink.addEventListener("click", () => {
     localStorage.removeItem("token");
     localStorage.removeItem("editMode");
     
-    modeEditExit();});  
+    modeEditExit();});
+    
