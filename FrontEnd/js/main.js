@@ -11,13 +11,13 @@ import {
   modeEdit,
   modeEditExit,
   afficherWorksInModal,
-  afficherModalGallery
+  afficherModalGallery,
+  afficherModalAjoutPhoto
 
   
 } from "./fonctions.js";
 const works = await getWorks();
 const categories = await getcategories();
-console.log(works);
 clearGallery();
 
 works.forEach((work) => {
@@ -66,9 +66,27 @@ if (editMode === "true") {
     modeEdit();
 }
 
+
 //afficherModalGallery(works);
+//afficherModalAjoutPhoto();
+    modeEdit();
+
+const modifBtn = document.querySelector(".modifier");
+modifBtn.addEventListener("click", () => {
+  const modal = document.querySelector(".modal-background");
+  modal.classList.remove("hidden");
+  afficherModalGallery(works);
+});
+
+
+const closeModalButton = document.querySelector(".closeModal");
+closeModalButton.addEventListener("click", () => {
+  const hidden = document.querySelector(".modal-background");
+  hidden.classList.add("hidden");
+  });
 
   const logoutLink = document.querySelector(".log.out");
+
   
   logoutLink.addEventListener("click", () => {
     localStorage.removeItem("token");

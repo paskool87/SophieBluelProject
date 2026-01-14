@@ -134,6 +134,10 @@ export function modeEditExit() {
   const modif = document.querySelector(".modifier");
   filtres.style.display = "flex";
   modif.style.display = "none";
+  const editMode = localStorage.getItem("editMode");
+  if (editMode === "true") {
+    localStorage.removeItem("editMode");
+  }
 
   location.reload();
 }
@@ -157,6 +161,7 @@ export function afficherWorksInModal(srcImage) {
   figure.appendChild(image);
   gallery.appendChild(figure);
 }
+const works = await getWorks();
 
 export function afficherModalGallery(works) {
   const gallery = document.querySelector(".modal-content");
@@ -169,4 +174,52 @@ export function afficherModalGallery(works) {
   works.forEach((work) => {
     afficherWorksInModal(work.imageUrl);
   });
+
+    const modalAjoutBtn = document.querySelector(".modalAjoutBtn");
+  modalAjoutBtn.addEventListener("click", () => {
+      afficherModalAjoutPhoto();
+  
+  });
+
+}
+
+export function afficherModalAjoutPhoto() {
+  const gallery = document.querySelector(".modal-content");
+  gallery.innerHTML = `
+			<i class="fas fa-arrow-left modalFleche"></i>
+			<h3>Ajout photo</h3>
+
+				<div class="ModalboxPhoto">
+					<i class="fas fa-image ModalPicture" ></i>
+					<button class="ModalAjoutPhotoBtn">+ Ajouter photo</button>
+					<p>jpg, png : 4mo max</p>
+
+				</div>
+	      <form class="addPhotoForm">
+  		    <div class="form-group">
+    		    <label class ="titreLabel" for="titre">Titre</label>
+    		    <input type="text" id="titre" name="titre" required>
+  		    </div>
+        <div class="ModalboxPage">
+
+  	      <div class="form-group">
+    	      <label for="categorie">Catégorie</label>
+    	      <select id="categorie" name="categorie" required>
+      		    <option value="">-- Sélectionnez une catégorie --</option>
+      		    <option value="1">Objets</option>
+      		    <option value="2">Appartements</option>
+      		    <option value="3">Hotels & restaurants</option>
+    	      </select>
+          </div>
+      </div>
+
+          <button type="submit">Valider</button>
+        </form>
+`;
+const modalFleche = document.querySelector(".modalFleche");
+modalFleche.addEventListener("click", () => {
+    afficherModalGallery(works);
+});
+
+  
 }

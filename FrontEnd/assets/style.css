@@ -413,6 +413,7 @@ footer nav ul {
   background-color: white;
   padding: 20px;
   border-radius: 10px;
+
 }
 
 .modal-content {
@@ -422,6 +423,7 @@ footer nav ul {
   text-align: center;
 }
 .closeModal {
+  z-index: 10;
   position: absolute;
   top: 20px;
   right: 20px;
@@ -437,7 +439,7 @@ footer nav ul {
 }
 .modalGallery {
   position: relative;
-  width: 65%;
+  width: 75%;
   height: 65%;
   overflow-y: auto;
   margin-bottom: 20px;
@@ -455,14 +457,15 @@ footer nav ul {
 .deleteIcon {
   color: white;
   cursor: pointer;
+  font-size: 12px;
 }
 
 .poubelle {
-  width: 20px;
-  height: 20px;
+  width: 17px;
+  height: 17px;
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: 4px;
+  right: 4px;
   background: black;
   cursor: pointer;
   display: flex;
@@ -490,6 +493,12 @@ footer nav ul {
   left: 20px;
   cursor: pointer;
   font-size: 21px;
+}
+.ModalboxPage {
+  margin: auto;
+  width: 65%;
+  height: 100%;
+  border-bottom: 1px solid #b3b3b3;
 }
 
 .ModalboxPhoto {
@@ -564,3 +573,6 @@ margin-left: 120px;
   border: none;
 
 }
+.hidden {
+  display: none;
+} 
