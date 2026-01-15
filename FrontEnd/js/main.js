@@ -12,9 +12,7 @@ import {
   modeEditExit,
   afficherWorksInModal,
   afficherModalGallery,
-  afficherModalAjoutPhoto
-
-  
+  afficherModalAjoutPhoto,
 } from "./fonctions.js";
 const works = await getWorks();
 const categories = await getcategories();
@@ -40,7 +38,7 @@ categories.forEach((category) => {
 });
 
 const tousBtn = document.querySelector(".tous");
-tousBtn.addEventListener("click",  () => {
+tousBtn.addEventListener("click", () => {
   clearGallery();
 
   works.forEach((work) => {
@@ -53,7 +51,7 @@ categories.forEach((category) => {
     `button[data-category-id='${category.id}']`
   );
   const filteredWorks = filtrerWorksByCategory(works, category.id);
-  button.addEventListener("click",  () => {
+  button.addEventListener("click", () => {
     clearGallery();
     filteredWorks.forEach((work) => {
       afficherWorks(work.title, work.imageUrl);
@@ -63,13 +61,12 @@ categories.forEach((category) => {
 
 const editMode = localStorage.getItem("editMode");
 if (editMode === "true") {
-    modeEdit();
+  modeEdit();
 }
-
 
 //afficherModalGallery(works);
 //afficherModalAjoutPhoto();
-    modeEdit();
+//  modeEdit();
 
 const modifBtn = document.querySelector(".modifier");
 modifBtn.addEventListener("click", () => {
@@ -78,19 +75,23 @@ modifBtn.addEventListener("click", () => {
   afficherModalGallery(works);
 });
 
-
 const closeModalButton = document.querySelector(".closeModal");
 closeModalButton.addEventListener("click", () => {
   const hidden = document.querySelector(".modal-background");
   hidden.classList.add("hidden");
-  });
+});
 
-  const logoutLink = document.querySelector(".log.out");
+const closeModalBack = document.querySelector(".modalBack");
+closeModalBack.addEventListener("click", () => {
+  const hidden = document.querySelector(".modal-background");
+  hidden.classList.add("hidden");
+});
 
-  
-  logoutLink.addEventListener("click", () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("editMode");
-    
-    modeEditExit();});
-    
+
+const logoutLink = document.querySelector(".log.out");
+logoutLink.addEventListener("click", () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("editMode");
+
+  modeEditExit();
+});

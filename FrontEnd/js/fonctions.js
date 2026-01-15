@@ -137,6 +137,8 @@ export function modeEditExit() {
   const editMode = localStorage.getItem("editMode");
   if (editMode === "true") {
     localStorage.removeItem("editMode");
+    localStorage.removeItem("token");
+
   }
 
   location.reload();
@@ -161,7 +163,7 @@ export function afficherWorksInModal(srcImage) {
   figure.appendChild(image);
   gallery.appendChild(figure);
 }
-const works = await getWorks();
+//const works = await getWorks();
 
 export function afficherModalGallery(works) {
   const gallery = document.querySelector(".modal-content");
@@ -190,9 +192,17 @@ export function afficherModalAjoutPhoto() {
 			<h3>Ajout photo</h3>
 
 				<div class="ModalboxPhoto">
-					<i class="fas fa-image ModalPicture" ></i>
-					<button class="ModalAjoutPhotoBtn">+ Ajouter photo</button>
-					<p>jpg, png : 4mo max</p>
+          <img id="preview" class="preview hidden" alt="">
+					<i class="fas fa-image ModalPicture " ></i>
+          <label for="photo" class="ModalAjoutPhotoBtn Label ">+ Ajouter photo</label>
+          <input class = "ModalAjoutPhotoInput"
+            type="file"
+            id="photo" 
+            accept="image/jpeg, image/png"
+            hidden
+            required
+          />					
+          <p class = "maxImage">jpg, png : 4mo max</p>
 
 				</div>
 	      <form class="addPhotoForm">
@@ -202,13 +212,10 @@ export function afficherModalAjoutPhoto() {
   		    </div>
         <div class="ModalboxPage">
 
-  	      <div class="form-group">
+  	      <div class="form-group liste" >
     	      <label for="categorie">Catégorie</label>
     	      <select id="categorie" name="categorie" required>
       		    <option value="">-- Sélectionnez une catégorie --</option>
-      		    <option value="1">Objets</option>
-      		    <option value="2">Appartements</option>
-      		    <option value="3">Hotels & restaurants</option>
     	      </select>
           </div>
       </div>
@@ -216,10 +223,62 @@ export function afficherModalAjoutPhoto() {
           <button type="submit">Valider</button>
         </form>
 `;
+
+const categories = JSON.parse(localStorage.getItem("categories"));
+const categorieSelect = document.getElementById("categorie");
+categories.forEach((category) => {
+  const optionElem = document.createElement("option");
+  optionElem.value = category.id;
+  optionElem.textContent = category.name;
+  categorieSelect.appendChild(optionElem);
+  
+  const inputImage = document.getElementById("photo");
+  const previewImage = document.getElementById("preview");
+  const picture = document.querySelector(".ModalPicture");
+  const labelBtn = document.querySelector(".ModalAjoutPhotoBtn");
+  const maxImage = document.querySelector(".maxImage");
+  
+  inputImage.addEventListener("change", (event) => {
+    
+    inputImage.classList.add("hidden");
+    previewImage.classList.remove("hidden");
+    picture.classList.add("hidden");
+    labelBtn.classList.add("hidden");
+    maxImage.classList.add("hidden");
+
+  const file = inputImage.files[0];
+
+  if (!file) return;
+    const maxSize = 4 * 1024 * 1024;
+    const allowedTypes = ["image/jpeg", "image/png"];
+      if (!allowedTypes.includes(file.type)) {
+    alert("Format invalide. JPEG ou PNG uniquement.");
+    input.value = "";
+    return;
+  }
+
+    if (file.size > maxSize) {
+    alert("Image trop lourde (4 Mo max).");
+    input.value = "";
+    return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = function (e) {
+    previewImage.src = reader.result;
+        preview.style.display = "block";
+  };
+
+  reader.readAsDataURL(file);
+});
+
+});
+
+const works = JSON.parse(localStorage.getItem("works"));
 const modalFleche = document.querySelector(".modalFleche");
 modalFleche.addEventListener("click", () => {
     afficherModalGallery(works);
 });
 
-  
 }

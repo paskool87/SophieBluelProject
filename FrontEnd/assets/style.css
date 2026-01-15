@@ -440,7 +440,7 @@ footer nav ul {
 .modalGallery {
   position: relative;
   width: 75%;
-  height: 65%;
+  height: 70%;
   overflow-y: auto;
   margin-bottom: 20px;
   margin: auto;
@@ -479,7 +479,7 @@ footer nav ul {
   font-size: 14px;
   color: white;
   background-color: #1d6154;
-  margin-top: 50px;
+  margin-top: 30px;
   width: 180px;
   text-align: center;
   border-radius: 60px;
@@ -494,12 +494,12 @@ footer nav ul {
   cursor: pointer;
   font-size: 21px;
 }
-.ModalboxPage {
+/*.ModalboxPage {
   margin: auto;
   width: 65%;
   height: 100%;
   border-bottom: 1px solid #b3b3b3;
-}
+}*/
 
 .ModalboxPhoto {
   width: 65%;
@@ -529,6 +529,9 @@ footer nav ul {
   font-weight: 600;
   margin-bottom: 15px;
   border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .titreLabel {
@@ -541,6 +544,12 @@ footer nav ul {
   flex-direction: column;
   text-align: left;
 margin-left: 120px;
+width: 64%;
+}
+
+.addPhotoForm .form-group.liste{
+    border-bottom: 1px solid #b3b3b3;
+
 }
 
 .addPhotoForm label {
@@ -551,7 +560,7 @@ margin-left: 120px;
 .addPhotoForm input,
 .addPhotoForm select {
   margin-bottom: 1em;
-  width: 78%;
+  width: 100%;
   height: 50px;
   font-size: 1.2em;
   border: none;
@@ -576,3 +585,26 @@ margin-left: 120px;
 .hidden {
   display: none;
 } 
+
+aside  {
+  position: relative;
+}
+
+.modalBack{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
+.ModalAjoutPhotoInput {
+  display: none;
+}
+ #preview{
+  width: 40%;
+  height: 100%;
+  margin: auto;
+  object-fit: cover;
+display: none; }
+
+ .ModalPicture{
+ }
