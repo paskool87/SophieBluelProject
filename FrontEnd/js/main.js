@@ -66,7 +66,7 @@ if (editMode === "true") {
 
 //afficherModalGallery(works);
 //afficherModalAjoutPhoto();
-//  modeEdit();
+  modeEdit();
 
 const modifBtn = document.querySelector(".modifier");
 modifBtn.addEventListener("click", () => {

@@ -138,7 +138,6 @@ export function modeEditExit() {
   if (editMode === "true") {
     localStorage.removeItem("editMode");
     localStorage.removeItem("token");
-
   }
 
   location.reload();
@@ -163,7 +162,6 @@ export function afficherWorksInModal(srcImage) {
   figure.appendChild(image);
   gallery.appendChild(figure);
 }
-//const works = await getWorks();
 
 export function afficherModalGallery(works) {
   const gallery = document.querySelector(".modal-content");
@@ -177,12 +175,10 @@ export function afficherModalGallery(works) {
     afficherWorksInModal(work.imageUrl);
   });
 
-    const modalAjoutBtn = document.querySelector(".modalAjoutBtn");
+  const modalAjoutBtn = document.querySelector(".modalAjoutBtn");
   modalAjoutBtn.addEventListener("click", () => {
-      afficherModalAjoutPhoto();
-  
+    afficherModalAjoutPhoto();
   });
-
 }
 
 export function afficherModalAjoutPhoto() {
@@ -215,70 +211,104 @@ export function afficherModalAjoutPhoto() {
   	      <div class="form-group liste" >
     	      <label for="categorie">Catégorie</label>
     	      <select id="categorie" name="categorie" required>
-      		    <option value="">-- Sélectionnez une catégorie --</option>
+      		    <option value=""></option>
     	      </select>
           </div>
       </div>
 
-          <button type="submit">Valider</button>
+          <button class="modalFormBtn" type="submit">Valider</button>
         </form>
 `;
 
-const categories = JSON.parse(localStorage.getItem("categories"));
-const categorieSelect = document.getElementById("categorie");
-categories.forEach((category) => {
-  const optionElem = document.createElement("option");
-  optionElem.value = category.id;
-  optionElem.textContent = category.name;
-  categorieSelect.appendChild(optionElem);
-  
+  const categories = JSON.parse(localStorage.getItem("categories"));
+  const categorieSelect = document.getElementById("categorie");
+  const titreInput = document.getElementById("titre");
+  let photoPresente = false;
+  const submitBtn = document.querySelector(".modalFormBtn");
+  submitBtn.disabled = true;
+
+  categories.forEach((category) => {
+    const optionElem = document.createElement("option");
+    optionElem.value = category.id;
+    optionElem.textContent = category.name;
+    categorieSelect.appendChild(optionElem);
+  });
+
   const inputImage = document.getElementById("photo");
   const previewImage = document.getElementById("preview");
   const picture = document.querySelector(".ModalPicture");
   const labelBtn = document.querySelector(".ModalAjoutPhotoBtn");
   const maxImage = document.querySelector(".maxImage");
-  
+
   inputImage.addEventListener("change", (event) => {
-    
     inputImage.classList.add("hidden");
     previewImage.classList.remove("hidden");
     picture.classList.add("hidden");
     labelBtn.classList.add("hidden");
     maxImage.classList.add("hidden");
 
-  const file = inputImage.files[0];
+    const file = inputImage.files[0];
 
-  if (!file) return;
+    if (!file) return;
     const maxSize = 4 * 1024 * 1024;
     const allowedTypes = ["image/jpeg", "image/png"];
-      if (!allowedTypes.includes(file.type)) {
-    alert("Format invalide. JPEG ou PNG uniquement.");
-    input.value = "";
-    return;
-  }
+    if (!allowedTypes.includes(file.type)) {
+      alert("Format invalide. JPEG ou PNG uniquement.");
+      input.value = "";
+      return;
+    }
 
     if (file.size > maxSize) {
-    alert("Image trop lourde (4 Mo max).");
-    input.value = "";
-    return;
+      alert("Image trop lourde (4 Mo max).");
+      input.value = "";
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+      previewImage.src = reader.result;
+      preview.style.display = "block";
+    };
+
+    reader.readAsDataURL(file);
+    photoPresente = true;
+    validerForm();
+  });
+
+  titreInput.addEventListener("input", () => {
+    validerForm();
+  });
+
+  categorieSelect.addEventListener("change", () => {
+    validerForm();
+  });
+
+
+  function validerForm() {
+
+    if (
+      photoPresente &&
+      titreInput.value.trim() !== "" &&
+      categorieSelect.value !== ""
+    ) {
+      submitBtn.disabled = false;
+      submitBtn.classList.add("valide");
+      envoyerFormulaire();
+    } else {
+      submitBtn.disabled = true;
+      submitBtn.classList.remove("valide");
+    }
+  }
+  function envoyerFormulaire() {
+      console.log(inputImage.files[0],11111);
+
   }
 
-  const reader = new FileReader();
 
-  reader.onload = function (e) {
-    previewImage.src = reader.result;
-        preview.style.display = "block";
-  };
-
-  reader.readAsDataURL(file);
-});
-
-});
-
-const works = JSON.parse(localStorage.getItem("works"));
-const modalFleche = document.querySelector(".modalFleche");
-modalFleche.addEventListener("click", () => {
+  const works = JSON.parse(localStorage.getItem("works"));
+  const modalFleche = document.querySelector(".modalFleche");
+  modalFleche.addEventListener("click", () => {
     afficherModalGallery(works);
-});
-
+  });
 }
