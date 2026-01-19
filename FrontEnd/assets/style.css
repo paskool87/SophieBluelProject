@@ -409,7 +409,15 @@ footer nav ul {
   display: flex;
   justify-content: center;
   align-items: center;
+
+    opacity: 0;
+  transition: opacity 0.3s ease;
 }
+
+.modal-background.show {
+opacity: 1;}
+
+
 .modal {
   position: relative;
   width: 40vw;
@@ -417,6 +425,7 @@ footer nav ul {
   background-color: white;
   padding: 20px;
   border-radius: 10px;
+
 
 }
 

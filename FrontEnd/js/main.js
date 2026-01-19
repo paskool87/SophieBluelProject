@@ -51,7 +51,6 @@ categories.forEach((category) => {
     `button[data-category-id='${category.id}']`,
   );
 
-
   const filteredWorks = filtrerWorksByCategory(works, category.id);
   button.addEventListener("click", () => {
     clearGallery();
@@ -75,15 +74,56 @@ if (editMode === "true") {
 const modifBtn = document.querySelector(".modifier");
 modifBtn.addEventListener("click", () => {
   works = JSON.parse(localStorage.getItem("works")) || works;
-  const modal = document.querySelector(".modal-background");
-  modal.classList.remove("hidden");
+  const modalBackground = document.querySelector(".modal-background");
+  const modal = modalBackground.querySelector(".modal");
+
+  modalBackground.classList.remove("hidden");
+
+  requestAnimationFrame(() => {
+    modalBackground.classList.add("show"); // transition opacity background
+  });
+
+  modal.style.transition = "none";
+  modal.style.opacity = "0";
+  modal.style.transform = "translateY(-50px)";
+
+  void modal.offsetHeight; // <-- lit la hauteur → forçage du reflow
+
+  setTimeout(() => {
+    modal.style.transition = "opacity 0.6s ease, transform 0.8s ease";
+    modal.style.opacity = "1";
+    modal.style.transform = "translateY(0)";
+  }, 100);
+
   afficherModalGallery(works);
 });
 
 const closeModalButton = document.querySelector(".closeModal");
 closeModalButton.addEventListener("click", () => {
   const hidden = document.querySelector(".modal-background");
-  hidden.classList.add("hidden");
+  const modal = document.querySelector(".modal");
+
+  modal.style.transition = "none";
+  modal.style.opacity = "1";
+  modal.style.transform = "scale(1)";
+  hidden.style.transition = "none";
+
+  void modal.offsetHeight; // <-- lit la hauteur → forçage du reflow
+
+  setTimeout(() => {
+    modal.style.transition = "opacity 0.6s ease, transform 0.4s ease";
+    modal.style.opacity = "0";
+    modal.style.transform = "scale(0.5)";
+  }, 200);
+
+  setTimeout(() => {
+    hidden.style.transition = "opacity 0.5s ease, ";
+    hidden.style.opacity = "1";
+  }, 200);
+
+  setTimeout(() => {
+    hidden.classList.add("hidden");
+  }, 500);
 });
 
 const closeModalBack = document.querySelector(".modalBack");
