@@ -19,7 +19,7 @@ const categories = await getcategories();
 clearGallery();
 
 works.forEach((work) => {
-  afficherWorks(work.title, work.imageUrl);
+  afficherWorks(work.title, work.imageUrl, work.id);
 });
 
 const filtres = document.querySelector(".filters");
@@ -42,7 +42,7 @@ tousBtn.addEventListener("click", () => {
   clearGallery();
 
   works.forEach((work) => {
-    afficherWorks(work.title, work.imageUrl);
+    afficherWorks(work.title, work.imageUrl, work.id);
   });
 });
 
@@ -57,7 +57,7 @@ categories.forEach((category) => {
     clearGallery();
 
     filteredWorks.forEach((work) => {
-      afficherWorks(work.title, work.imageUrl);
+      afficherWorks(work.title, work.imageUrl, work.id);
     });
   });
 });

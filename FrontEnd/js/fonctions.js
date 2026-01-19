@@ -1,6 +1,7 @@
-export function afficherWorks(title, srcImage) {
+export function afficherWorks(title, srcImage, id) {
   const gallery = document.querySelector(".gallery");
   const figure = document.createElement("figure");
+  figure.dataset.id = id;
   const image = document.createElement("img");
   const figcaption = document.createElement("figcaption");
   image.src = srcImage;
@@ -143,15 +144,18 @@ export function modeEditExit() {
   location.reload();
 }
 
-export function afficherWorksInModal(srcImage) {
+export function afficherWorksInModal(srcImage, id) {
   const gallery = document.querySelector(".modalGallery");
   const figure = document.createElement("figure");
+  figure.dataset.id = id;
+
   const image = document.createElement("img");
 
   figure.style.position = "relative";
 
   const trash = document.createElement("div");
   trash.classList.add("poubelle");
+  trash.dataset.id = id;
   figure.appendChild(trash);
 
   const deleteIcon = document.createElement("i");
@@ -172,13 +176,70 @@ export function afficherModalGallery(works) {
 				<button class="modalAjoutBtn">Ajouter une photo</button>`;
 
   works.forEach((work) => {
-    afficherWorksInModal(work.imageUrl);
+    afficherWorksInModal(work.imageUrl, work.id);
   });
 
   const modalAjoutBtn = document.querySelector(".modalAjoutBtn");
   modalAjoutBtn.addEventListener("click", () => {
     afficherModalAjoutPhoto();
   });
+
+  // Gestion de la suppression d'une photo
+
+  const modalGallery = document.querySelector(".modalGallery");
+  modalGallery.addEventListener("click", async (e) => {
+    const clickSurPoubelle = e.target.closest(".poubelle");
+    if (!clickSurPoubelle) return;
+
+    const ok = confirm("Êtes-vous sûr de vouloir supprimer ce projet ?");
+    if (!ok) return;
+
+    const id_Asupprimer = Number(clickSurPoubelle.dataset.id);
+    await supprimerProjet(id_Asupprimer);
+
+    const figureModal = modalGallery.querySelector(
+      `figure[data-id="${id_Asupprimer}"]`,
+    );
+    if (figureModal) figureModal.remove();
+
+    const mainGallery = document.querySelector(".gallery");
+    const figureMain = mainGallery.querySelector(
+      `figure[data-id="${id_Asupprimer}"]`,
+    );
+    if (figureMain) figureMain.remove();
+
+    let projets = JSON.parse(localStorage.getItem("works")) || [];
+    projets = projets.filter((p) => p.id !== id_Asupprimer);
+    localStorage.setItem("works", JSON.stringify(projets));
+  });
+}
+
+async function supprimerProjet(id) {
+  const token = localStorage.getItem("token");
+
+  try {
+    const response = await fetch(`http://localhost:5678/api/works/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.status === 401 || response.status === 403) {
+      localStorage.removeItem("token");
+      alert("Session expirée. Merci de vous reconnecter.");
+      modeEditExit();
+      return false;
+    }
+    if (!response.ok) {
+      console.error("Erreur lors de la suppression du projet");
+      return false;
+    }
+    return true;
+  } catch (error) {
+    console.error("Erreur réseau :", error);
+    return false;
+  }
 }
 
 export function afficherModalAjoutPhoto() {
@@ -316,10 +377,7 @@ export function afficherModalAjoutPhoto() {
     formData.append("title", titreInput.value);
     formData.append("category", categorieSelect.value);
 
-
-
     try {
-
       const response = await fetch("http://localhost:5678/api/works", {
         method: "POST",
         headers: {
@@ -353,9 +411,8 @@ export function afficherModalAjoutPhoto() {
       projets.push(data);
       localStorage.setItem("works", JSON.stringify(projets));
 
-      afficherWorks(data.title, data.imageUrl);
+      afficherWorks(data.title, data.imageUrl, data.id);
       afficherModalGallery(projets);
-
     } catch (error) {
       console.error("Erreur réseau :", error);
     }
