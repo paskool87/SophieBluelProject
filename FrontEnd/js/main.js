@@ -14,7 +14,7 @@ import {
   afficherModalGallery,
   afficherModalAjoutPhoto,
 } from "./fonctions.js";
-const works = await getWorks();
+let works = await getWorks();
 const categories = await getcategories();
 clearGallery();
 
@@ -48,11 +48,14 @@ tousBtn.addEventListener("click", () => {
 
 categories.forEach((category) => {
   const button = document.querySelector(
-    `button[data-category-id='${category.id}']`
+    `button[data-category-id='${category.id}']`,
   );
+
+
   const filteredWorks = filtrerWorksByCategory(works, category.id);
   button.addEventListener("click", () => {
     clearGallery();
+
     filteredWorks.forEach((work) => {
       afficherWorks(work.title, work.imageUrl);
     });
@@ -66,10 +69,12 @@ if (editMode === "true") {
 
 //afficherModalGallery(works);
 //afficherModalAjoutPhoto();
-  modeEdit();
+//modeEdit();
+//localStorage.removeItem("works");
 
 const modifBtn = document.querySelector(".modifier");
 modifBtn.addEventListener("click", () => {
+  works = JSON.parse(localStorage.getItem("works")) || works;
   const modal = document.querySelector(".modal-background");
   modal.classList.remove("hidden");
   afficherModalGallery(works);
@@ -86,7 +91,6 @@ closeModalBack.addEventListener("click", () => {
   const hidden = document.querySelector(".modal-background");
   hidden.classList.add("hidden");
 });
-
 
 const logoutLink = document.querySelector(".log.out");
 logoutLink.addEventListener("click", () => {

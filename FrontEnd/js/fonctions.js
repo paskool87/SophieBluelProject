@@ -284,9 +284,7 @@ export function afficherModalAjoutPhoto() {
     validerForm();
   });
 
-
   function validerForm() {
-
     if (
       photoPresente &&
       titreInput.value.trim() !== "" &&
@@ -294,17 +292,74 @@ export function afficherModalAjoutPhoto() {
     ) {
       submitBtn.disabled = false;
       submitBtn.classList.add("valide");
-      envoyerFormulaire();
     } else {
       submitBtn.disabled = true;
       submitBtn.classList.remove("valide");
     }
   }
-  function envoyerFormulaire() {
-      console.log(inputImage.files[0],11111);
 
+  const form = document.querySelector(".addPhotoForm");
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    envoyerFormulaire();
+
+    const hidden = document.querySelector(".modal-background");
+    hidden.classList.add("hidden");
+  });
+
+  async function envoyerFormulaire() {
+    const token = localStorage.getItem("token");
+
+    const formData = new FormData();
+    formData.append("image", inputImage.files[0]);
+    formData.append("title", titreInput.value);
+    formData.append("category", categorieSelect.value);
+
+
+
+    try {
+
+      const response = await fetch("http://localhost:5678/api/works", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
+
+      if (response.status === 401 || response.status === 403) {
+        localStorage.removeItem("token");
+
+        alert("Session expirée. Merci de vous reconnecter.");
+        modeEditExit();
+      }
+
+      if (!response.ok) {
+        console.error("Erreur serveur");
+        return;
+      }
+
+      const data = await response.json();
+
+      data.categoryId = Number(data.categoryId);
+      console.log("Projet créé :", data);
+
+      let projets = JSON.parse(localStorage.getItem("works")) || [];
+
+      console.log("Projets avant ajout :", projets);
+      console.log("Nouveau projet :", data);
+
+      projets.push(data);
+      localStorage.setItem("works", JSON.stringify(projets));
+
+      afficherWorks(data.title, data.imageUrl);
+      afficherModalGallery(projets);
+
+    } catch (error) {
+      console.error("Erreur réseau :", error);
+    }
   }
-
 
   const works = JSON.parse(localStorage.getItem("works"));
   const modalFleche = document.querySelector(".modalFleche");

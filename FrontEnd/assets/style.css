@@ -248,6 +248,9 @@ li:hover {
 
 .gallery img {
   width: 100%;
+  aspect-ratio: 305 / 405;    
+  object-fit: cover;
+
 }
 #contact {
   width: 50%;
@@ -289,6 +292,7 @@ input[type="submit"] {
   width: 180px;
   text-align: center;
   border-radius: 60px;
+  cursor: pointer;
 }
 
 footer nav ul {
@@ -452,6 +456,9 @@ footer nav ul {
 }
 .modalGallery img {
   width: 100%;
+  aspect-ratio: 76 / 102;    
+  object-fit: cover;
+
 }
 
 .deleteIcon {
