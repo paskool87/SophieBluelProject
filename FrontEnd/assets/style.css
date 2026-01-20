@@ -510,12 +510,6 @@ opacity: 1;}
   cursor: pointer;
   font-size: 21px;
 }
-/*.ModalboxPage {
-  margin: auto;
-  width: 65%;
-  height: 100%;
-  border-bottom: 1px solid #b3b3b3;
-}*/
 
 .ModalboxPhoto {
   width: 65%;
@@ -625,3 +619,13 @@ display: none; }
 .valide {
   background-color: #1d6154 !important;
 }
+
+.succesMessage {
+  position: absolute;
+  left: 200px;
+  color: #306685;
+  font-size: 16px;
+  margin-top: 20px;
+  height: 20px;
+  font-weight: 700;
+  }

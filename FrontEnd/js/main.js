@@ -1,19 +1,26 @@
 import {
   afficherWorks,
-  fetchWorks,
   getWorks,
-  clearWorks,
-  fetchCategories,
-  getcategories,
-  clearCategories,
   clearGallery,
-  filtrerWorksByCategory,
+} from "./js/fonctions/projets.js";
+
+import {
+  getcategories,
+  filtrerWorksByCategory
+} from "./js/fonctions/category.js";
+
+import {
   modeEdit,
-  modeEditExit,
-  afficherWorksInModal,
-  afficherModalGallery,
-  afficherModalAjoutPhoto,
-} from "./fonctions.js";
+  modeEditExit
+} from "./js/fonctions/admin.js";
+
+import {
+  afficherModalGallery
+} from "./js/fonctions/modalGallery.js";
+
+
+
+
 let works = await getWorks();
 const categories = await getcategories();
 clearGallery();
@@ -22,7 +29,7 @@ works.forEach((work) => {
   afficherWorks(work.title, work.imageUrl, work.id);
 });
 
-const filtres = document.querySelector(".filters");
+/*const filtres = document.querySelector(".filters");
 const allButton = document.createElement("button");
 allButton.textContent = "Tous";
 allButton.classList.add("filterBtn", "tous", "active");
@@ -48,7 +55,7 @@ tousBtn.addEventListener("click", () => {
 
 categories.forEach((category) => {
   const button = document.querySelector(
-    `button[data-category-id='${category.id}']`,
+    `button[data-category-id='${category.id}']`
   );
 
   const filteredWorks = filtrerWorksByCategory(works, category.id);
@@ -80,7 +87,7 @@ modifBtn.addEventListener("click", () => {
   modalBackground.classList.remove("hidden");
 
   requestAnimationFrame(() => {
-    modalBackground.classList.add("show"); // transition opacity background
+    modalBackground.classList.add("show"); 
   });
 
   modal.style.transition = "none";
@@ -138,4 +145,4 @@ logoutLink.addEventListener("click", () => {
   localStorage.removeItem("editMode");
 
   modeEditExit();
-});
+});*/

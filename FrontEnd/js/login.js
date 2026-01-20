@@ -1,8 +1,8 @@
 import{
-    connexionAdmin,
-    modeEdit
+    connexionAdmin
+    
 }
-from "./fonctions.js";
+from "./js/fonctions./admin.js";
 
 const form = document.getElementById("loginForm");
 
