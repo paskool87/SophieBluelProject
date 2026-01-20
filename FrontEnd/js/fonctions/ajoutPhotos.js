@@ -1,18 +1,18 @@
 import {
   modeEditExit
 
-} from "./js/fonctions/admin.js";
+} from "./admin.js";
 
 import{
   afficherWorks,
-  afficherWorksInModal
 
-} from ".js/fonctions/projets.js"
+} from "./projets.js"
 
 import{
-  afficherModalGallery
+  afficherModalGallery,
+  afficherWorksInModal
 
-} from ".js/fonctions/modalGallery.js"
+} from "./modalGallery.js"
 
 
 

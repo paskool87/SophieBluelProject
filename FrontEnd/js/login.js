@@ -2,7 +2,7 @@ import{
     connexionAdmin
     
 }
-from "./js/fonctions./admin.js";
+from "./fonctions/admin.js";
 
 const form = document.getElementById("loginForm");
 
