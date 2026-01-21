@@ -1,12 +1,12 @@
 import{
   afficherModalAjoutPhoto,
   
-} from "./js/fonctions/ajoutPhotos.js";
+} from "./ajoutPhotos.js";
 
 import{
   modeEditExit,
   
-} from "./js/fonctions/admin.js";
+} from "./admin.js";
 
 //Affiche une image dans la modale avec l'icone poubelle
 export function afficherWorksInModal(srcImage, id) {

@@ -2,6 +2,7 @@ export async function connexionAdmin() {
   const form = document.getElementById("loginForm");
   const formData = new FormData(form);
   const data = Object.fromEntries(formData);
+  const message = document.querySelector(".errorMessage");
 
   try {
     const response = await fetch("http://localhost:5678/api/users/login", {
@@ -13,17 +14,17 @@ export async function connexionAdmin() {
     });
 
     if (!response.ok) {
-      console.log("Erreur de connexion");
+      console.log("Erreur de connexion", 11111);
 
       // Afficher le message d'erreur dans la page de connexion
-      const message = document.querySelector(".errorMessage");
       message.style.display = "block";
       message.innerText = "Erreur dans l’identifiant ou le mot de passe";
       setTimeout(() => {
         message.innerHTML = "";
         message.style.display = "none";
       }, 3000);
-      throw new Error("Erreur lors de la connexion");
+      return;
+      //throw new Error("Erreur lors de la connexion");
     }
 
     // Connexion réussie
@@ -35,7 +36,12 @@ export async function connexionAdmin() {
     window.location.href = "index.html";
     return result;
   } catch (error) {
+    message.innerText = "Erreur lors de la connexion aux données";
+    message.style.display = "block";
+    console.log(message, 11111);
+
     console.error("Erreur lors de la connexion :", error);
+
     throw error;
   }
 }
@@ -61,7 +67,6 @@ export function modeEdit() {
   modif.style.display = "flex";
 }
 
-
 //Quitter le mode édition
 export function modeEditExit() {
   const filtres = document.querySelector(".filters");
@@ -76,14 +81,3 @@ export function modeEditExit() {
 
   location.reload();
 }
-
-
-
-
-
-
-
-
-
-
-

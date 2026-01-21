@@ -2,21 +2,21 @@ import {
   afficherWorks,
   getWorks,
   clearGallery,
-} from "./js/fonctions/projets.js";
+} from "./fonctions/projets.js";
 
 import {
   getcategories,
   filtrerWorksByCategory
-} from "./js/fonctions/category.js";
+} from "./fonctions/category.js";
 
 import {
   modeEdit,
   modeEditExit
-} from "./js/fonctions/admin.js";
+} from "./fonctions/admin.js";
 
 import {
   afficherModalGallery
-} from "./js/fonctions/modalGallery.js";
+} from "./fonctions/modalGallery.js";
 
 
 
@@ -29,7 +29,7 @@ works.forEach((work) => {
   afficherWorks(work.title, work.imageUrl, work.id);
 });
 
-/*const filtres = document.querySelector(".filters");
+const filtres = document.querySelector(".filters");
 const allButton = document.createElement("button");
 allButton.textContent = "Tous";
 allButton.classList.add("filterBtn", "tous", "active");
@@ -145,4 +145,4 @@ logoutLink.addEventListener("click", () => {
   localStorage.removeItem("editMode");
 
   modeEditExit();
-});*/
+});

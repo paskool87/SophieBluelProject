@@ -1,18 +1,18 @@
 import {
   modeEditExit
 
-} from "./js/fonctions/admin.js";
+} from "./admin.js";
 
 import{
   afficherWorks,
-  afficherWorksInModal
 
-} from ".js/fonctions/projets.js"
+} from "./projets.js"
 
 import{
-  afficherModalGallery
+  afficherModalGallery,
+  afficherWorksInModal
 
-} from ".js/fonctions/modalGallery.js"
+} from "./modalGallery.js"
 
 
 
@@ -53,6 +53,7 @@ export function afficherModalAjoutPhoto() {
     	      </select>
           </div>
         </div>
+        <div class="toutRemplir">Ajoutez une photo, un titre et une catégorie</div>
         <div class="succesMessage"></div>
         <button class="modalFormBtn" type="submit">Valider</button>
       </form>
@@ -134,6 +135,7 @@ export function afficherModalAjoutPhoto() {
     ) {
       submitBtn.disabled = false;
       submitBtn.classList.add("valide");
+      document.querySelector(".toutRemplir").classList.add("hidden");
     } else {
       submitBtn.disabled = true;
       submitBtn.classList.remove("valide");
