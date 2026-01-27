@@ -62,25 +62,25 @@ export function afficherModalGallery(works) {
     const ok = confirm("Êtes-vous sûr de vouloir supprimer ce projet ?");
     if (!ok) return;
 
-    const id_Asupprimer = Number(clickSurPoubelle.dataset.id);
+    const idASupprimer = Number(clickSurPoubelle.dataset.id);
 
-    const success = await supprimerProjet(id_Asupprimer);
+    const success = await supprimerProjet(idASupprimer);
     if (!success) return;
 
     // On efface directement des galeries et du localStorage
     const figureModal = modalGallery.querySelector(
-      `figure[data-id="${id_Asupprimer}"]`
+      `figure[data-id="${idASupprimer}"]`
     );
     if (figureModal) figureModal.remove();
 
     const mainGallery = document.querySelector(".gallery");
     const figureMain = mainGallery.querySelector(
-      `figure[data-id="${id_Asupprimer}"]`
+      `figure[data-id="${idASupprimer}"]`
     );
     if (figureMain) figureMain.remove();
 
     let projets = JSON.parse(localStorage.getItem("works")) || [];
-    projets = projets.filter((p) => p.id !== id_Asupprimer);
+    projets = projets.filter((p) => p.id !== idASupprimer);
     localStorage.setItem("works", JSON.stringify(projets));
   });
 }
