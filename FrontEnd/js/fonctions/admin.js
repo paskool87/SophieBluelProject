@@ -14,7 +14,7 @@ export async function connexionAdmin() {
     });
 
     if (!response.ok) {
-      console.log("Erreur de connexion", 11111);
+      
 
       // Afficher le message d'erreur dans la page de connexion
       message.style.display = "block";
@@ -38,7 +38,6 @@ export async function connexionAdmin() {
   } catch (error) {
     message.innerText = "Erreur lors de la connexion aux données";
     message.style.display = "block";
-    console.log(message, 11111);
 
     console.error("Erreur lors de la connexion :", error);
 

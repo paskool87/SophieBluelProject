@@ -94,7 +94,7 @@ modifBtn.addEventListener("click", () => {
   modal.style.opacity = "0";
   modal.style.transform = "translateY(-50px)";
 
-  void modal.offsetHeight; // <-- lit la hauteur → forçage du reflow
+  void modal.offsetHeight; 
 
   setTimeout(() => {
     modal.style.transition = "opacity 0.6s ease, transform 0.8s ease";
@@ -115,7 +115,7 @@ closeModalButton.addEventListener("click", () => {
   modal.style.transform = "scale(1)";
   hidden.style.transition = "none";
 
-  void modal.offsetHeight; // <-- lit la hauteur → forçage du reflow
+  void modal.offsetHeight; 
 
   setTimeout(() => {
     modal.style.transition = "opacity 0.6s ease, transform 0.4s ease";

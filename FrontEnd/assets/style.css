@@ -362,7 +362,7 @@ footer nav ul {
 }
 
 .editBar {
-  width: 100%;
+  width: 150%;
   height: 59px;
   background-color: black;
   color: white;
@@ -371,6 +371,9 @@ footer nav ul {
   justify-content: center;
   gap: 10px;
   margin-bottom: 30px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .editProjet {
