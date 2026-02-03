@@ -1,24 +1,10 @@
-import {
-  modeEditExit
+import { modeEditExit } from "./admin.js";
 
-} from "./admin.js";
+import { afficherWorks } from "./projets.js";
 
-import{
-  afficherWorks,
-
-} from "./projets.js"
-
-import{
-  afficherModalGallery,
-  afficherWorksInModal
-
-} from "./modalGallery.js"
-
-
-
+import { afficherModalGallery, afficherWorksInModal } from "./modalGallery.js";
 
 export function afficherModalAjoutPhoto() {
-
   // Contenu HTML du modal d'ajout de photo
   const gallery = document.querySelector(".modal-content");
   gallery.innerHTML = `
@@ -58,7 +44,7 @@ export function afficherModalAjoutPhoto() {
         <button class="modalFormBtn" type="submit">Valider</button>
       </form>
 `;
-// Récupération des catégories depuis le localStorage et remplissage du select
+  // Récupération des catégories depuis le localStorage et remplissage du select
   const categories = JSON.parse(localStorage.getItem("categories"));
   const categorieSelect = document.getElementById("categorie");
   const titreInput = document.getElementById("titre");
@@ -72,7 +58,7 @@ export function afficherModalAjoutPhoto() {
     optionElem.textContent = category.name;
     categorieSelect.appendChild(optionElem);
   });
-  
+
   const inputImage = document.getElementById("photo");
   const previewImage = document.getElementById("preview");
   const picture = document.querySelector(".ModalPicture");
@@ -105,7 +91,7 @@ export function afficherModalAjoutPhoto() {
       return;
     }
 
-//Image de preview
+    //Image de preview
     const reader = new FileReader();
 
     reader.onload = function (e) {
@@ -117,7 +103,7 @@ export function afficherModalAjoutPhoto() {
     photoPresente = true;
     validerForm();
   });
-//Ecoute si les champs sont remplis
+  //Ecoute si les champs sont remplis
   titreInput.addEventListener("input", () => {
     validerForm();
   });
@@ -125,7 +111,6 @@ export function afficherModalAjoutPhoto() {
   categorieSelect.addEventListener("change", () => {
     validerForm();
   });
-
 
   function validerForm() {
     if (
@@ -139,6 +124,7 @@ export function afficherModalAjoutPhoto() {
     } else {
       submitBtn.disabled = true;
       submitBtn.classList.remove("valide");
+      document.querySelector(".toutRemplir").classList.remove("hidden");
     }
   }
 
@@ -149,7 +135,7 @@ export function afficherModalAjoutPhoto() {
 
     envoyerFormulaire();
 
-// Message de réussite avant de fermer la modal
+    // Message de réussite avant de fermer la modal
     const messageSucces = document.querySelector(".succesMessage");
     messageSucces.style.display = "block";
     messageSucces.innerText = "Nouveau projet ajouté avec succès !";
@@ -164,7 +150,7 @@ export function afficherModalAjoutPhoto() {
   async function envoyerFormulaire() {
     const token = localStorage.getItem("token");
 
-// Nouveau projet vers l'API
+    // Nouveau projet vers l'API
     const formData = new FormData();
     formData.append("image", inputImage.files[0]);
     formData.append("title", titreInput.value);
@@ -195,21 +181,20 @@ export function afficherModalAjoutPhoto() {
 
       data.categoryId = Number(data.categoryId);
 
-// Nouveau projet dans le local storage
+      // Nouveau projet dans le local storage
       let projets = JSON.parse(localStorage.getItem("works")) || [];
 
       projets.push(data);
       localStorage.setItem("works", JSON.stringify(projets));
 
-// il s'affiche directement dans les galeries
+      // il s'affiche directement dans les galeries
       afficherWorks(data.title, data.imageUrl, data.id);
       afficherWorksInModal(data.imageUrl, data.id);
-
     } catch (error) {
       console.error("Erreur réseau :", error);
     }
   }
-// Revenir en arrière
+  // Revenir en arrière
   const works = JSON.parse(localStorage.getItem("works"));
   const modalFleche = document.querySelector(".modalFleche");
   modalFleche.addEventListener("click", () => {
