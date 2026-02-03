@@ -1,25 +1,10 @@
-import {
-  afficherWorks,
-  getWorks,
-  clearGallery,
-} from "./fonctions/projets.js";
+import { afficherWorks, getWorks, clearGallery } from "./fonctions/projets.js";
 
-import {
-  getcategories,
-  filtrerWorksByCategory
-} from "./fonctions/category.js";
+import { getcategories, filtrerWorksByCategory } from "./fonctions/category.js";
 
-import {
-  modeEdit,
-  modeEditExit
-} from "./fonctions/admin.js";
+import { modeEdit, modeEditExit } from "./fonctions/admin.js";
 
-import {
-  afficherModalGallery
-} from "./fonctions/modalGallery.js";
-
-
-
+import { afficherModalGallery } from "./fonctions/modalGallery.js";
 
 let works = await getWorks();
 const categories = await getcategories();
@@ -48,6 +33,11 @@ const tousBtn = document.querySelector(".tous");
 tousBtn.addEventListener("click", () => {
   clearGallery();
 
+  filtres.querySelectorAll(".filterBtn").forEach((btn) => {
+    btn.classList.remove("active");
+  });
+  tousBtn.classList.add("active");
+
   works.forEach((work) => {
     afficherWorks(work.title, work.imageUrl, work.id);
   });
@@ -55,13 +45,17 @@ tousBtn.addEventListener("click", () => {
 
 categories.forEach((category) => {
   const button = document.querySelector(
-    `button[data-category-id='${category.id}']`
+    `button[data-category-id='${category.id}']`,
   );
 
   const filteredWorks = filtrerWorksByCategory(works, category.id);
   button.addEventListener("click", () => {
     clearGallery();
 
+    filtres.querySelectorAll(".filterBtn").forEach((btn) => {
+      btn.classList.remove("active");
+    });
+    button.classList.add("active");
     filteredWorks.forEach((work) => {
       afficherWorks(work.title, work.imageUrl, work.id);
     });
@@ -87,14 +81,14 @@ modifBtn.addEventListener("click", () => {
   modalBackground.classList.remove("hidden");
 
   requestAnimationFrame(() => {
-    modalBackground.classList.add("show"); 
+    modalBackground.classList.add("show");
   });
 
   modal.style.transition = "none";
   modal.style.opacity = "0";
   modal.style.transform = "translateY(-50px)";
 
-  void modal.offsetHeight; 
+  void modal.offsetHeight;
 
   setTimeout(() => {
     modal.style.transition = "opacity 0.6s ease, transform 0.8s ease";
@@ -115,7 +109,7 @@ closeModalButton.addEventListener("click", () => {
   modal.style.transform = "scale(1)";
   hidden.style.transition = "none";
 
-  void modal.offsetHeight; 
+  void modal.offsetHeight;
 
   setTimeout(() => {
     modal.style.transition = "opacity 0.6s ease, transform 0.4s ease";
