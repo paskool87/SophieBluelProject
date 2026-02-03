@@ -236,7 +236,6 @@ li:hover {
  button.active {
   background-color: #1d6154;
   color: white;
-  cursor: pointer;
 }
 .gallery {
   width: 100%;
