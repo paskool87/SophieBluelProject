@@ -6,13 +6,19 @@ import { modeEdit, modeEditExit } from "./fonctions/admin.js";
 
 import { afficherModalGallery } from "./fonctions/modalGallery.js";
 
+// on récupère les variables dans localStorage
+
 let works = await getWorks();
 const categories = await getcategories();
 clearGallery();
 
+// affichage des projets
+
 works.forEach((work) => {
   afficherWorks(work.title, work.imageUrl, work.id);
 });
+
+// affichage du bouton tous
 
 const filtres = document.querySelector(".filters");
 const allButton = document.createElement("button");
@@ -21,6 +27,8 @@ allButton.classList.add("filterBtn", "tous", "active");
 
 filtres.appendChild(allButton);
 
+// affichage des boutons filtre
+
 categories.forEach((category) => {
   const button = document.createElement("button");
   button.textContent = category.name;
@@ -28,6 +36,8 @@ categories.forEach((category) => {
   button.dataset.categoryId = category.id;
   filtres.appendChild(button);
 });
+
+// listener sur bouton tous
 
 const tousBtn = document.querySelector(".tous");
 tousBtn.addEventListener("click", () => {
@@ -42,6 +52,8 @@ tousBtn.addEventListener("click", () => {
     afficherWorks(work.title, work.imageUrl, work.id);
   });
 });
+
+// listener sur boutons filtre
 
 categories.forEach((category) => {
   const button = document.querySelector(
@@ -62,15 +74,14 @@ categories.forEach((category) => {
   });
 });
 
+// eventuel mode edit
+
 const editMode = localStorage.getItem("editMode");
 if (editMode === "true") {
   modeEdit();
 }
 
-//afficherModalGallery(works);
-//afficherModalAjoutPhoto();
-//modeEdit();
-//localStorage.removeItem("works");
+// listener sur modifier
 
 const modifBtn = document.querySelector(".modifier");
 modifBtn.addEventListener("click", () => {
@@ -98,6 +109,8 @@ modifBtn.addEventListener("click", () => {
 
   afficherModalGallery(works);
 });
+
+// fermeture modal par la croix
 
 const closeModalButton = document.querySelector(".closeModal");
 closeModalButton.addEventListener("click", () => {
@@ -127,11 +140,15 @@ closeModalButton.addEventListener("click", () => {
   }, 500);
 });
 
+// fermeture de la modal par l 'arrière plan
+
 const closeModalBack = document.querySelector(".modalBack");
 closeModalBack.addEventListener("click", () => {
   const hidden = document.querySelector(".modal-background");
   hidden.classList.add("hidden");
 });
+
+// sortir du mode edit
 
 const logoutLink = document.querySelector(".log.out");
 logoutLink.addEventListener("click", () => {

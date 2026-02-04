@@ -24,7 +24,6 @@ export async function connexionAdmin() {
         message.style.display = "none";
       }, 3000);
       return;
-      //throw new Error("Erreur lors de la connexion");
     }
 
     // Connexion réussie
